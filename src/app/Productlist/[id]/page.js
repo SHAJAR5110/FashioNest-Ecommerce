@@ -39,7 +39,7 @@ export default function ProductDetailPage({ params }) {
   // Unwrap the `params` Promise using `React.use()`
   const { id } = React.use(params);
 
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -58,11 +58,13 @@ export default function ProductDetailPage({ params }) {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div
+    className='h-[80vh]'
+    >Loading...</div>;
   }
 
   if (!product) {
-    return <div>Product not found</div>;
+    return <div className='h-[80vh]' >Product not found</div>;
   }
 
   const handleAddToCart = () => {
