@@ -1,4 +1,5 @@
-// src/app/Productlist/page.js
+
+
 import ProductListClient from "./ProductListClient"; // Client Component
 import { getProducts } from "../UIcomponents/getProducts"; // Helper function for fetching data
 

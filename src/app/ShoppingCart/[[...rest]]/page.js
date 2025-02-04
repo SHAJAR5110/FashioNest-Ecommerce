@@ -3,13 +3,37 @@
 import { useSelector, useDispatch } from "react-redux";
 import { urlFor } from "@/sanity/lib/image";
 import { useState } from "react";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../../components/ui/button";
 import Image from "next/image";
-import { remove } from "../redux/cartslice"; 
+import { remove } from "../../redux/cartslice"; 
 import { loadStripe } from "@stripe/stripe-js";
-import Banner from "../UIcomponents/Banner";
+import Banner from "../../UIcomponents/Banner";
+import { SignUp, useUser } from "@clerk/nextjs";
 
 export default function ShoppingCart() {
+
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return (
+      <div className="flex justify-center items-center text-2xl my-auto gap-1 h-[80vh] ">
+        <span className="loading loading-bars loading-xs"></span>
+        <span className="loading loading-bars loading-sm"></span>
+        <span className="loading loading-bars loading-md"></span>
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
+    return (
+      <div className="flex flex-col justify-center items-center h-[80vh] w-full ">
+       <SignUp></SignUp>
+      </div>
+    );
+  }
+
+
   let newQuantities = 1;
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();

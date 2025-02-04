@@ -1,5 +1,6 @@
-// src/app/[id]/page.js
-'use client';
+// src/app/Productlist/[id]/page.js
+"use client"; // Add this directive
+
 import { urlFor } from '@/sanity/lib/image';
 import { client } from '../../../../sanityClient';
 import Image from 'next/image';
@@ -35,22 +36,31 @@ async function getProductById(id) {
 }
 
 export default function ProductDetailPage({ params }) {
-  // Unwrap the `params` Promise using `React.use()`
-  const { id } = React.use(params);
-
+  const { id } = params;
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchProduct() {
-      const productData = await getProductById(id);
-      setProduct(productData);
+      try {
+        const productData = await getProductById(id);
+        setProduct(productData);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchProduct();
   }, [id]);
 
-  if (!product) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!product) {
+    return <div>Product not found</div>;
   }
 
   const handleAddToCart = () => {
@@ -72,7 +82,7 @@ export default function ProductDetailPage({ params }) {
         <div className="w-[602px] p-[50px] flex flex-col">
           <h1 className="text-[32px]">{product.name}</h1>
           <p className="text-[24px]">
-            Rs.{product.price} {product.discountPercentage && <span className="text-red-500">({product.discountPercentage}% off)</span>}
+            ${product.price} {product.discountPercentage && <span className="text-red-500">({product.discountPercentage}% off)</span>}
           </p>
           <p className="my-5">Description</p>
           <p className="text-[#8c89a2] my-2">{product.description}</p>
