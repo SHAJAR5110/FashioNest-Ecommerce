@@ -1,5 +1,5 @@
 // src/app/Productlist/[id]/page.js
-"use client"; // Add this directive
+"use client"; // Ensure this is a Client Component
 
 import { urlFor } from '@/sanity/lib/image';
 import { client } from '../../../../sanityClient';
@@ -36,7 +36,9 @@ async function getProductById(id) {
 }
 
 export default function ProductDetailPage({ params }) {
-  const { id } = params;
+  // Unwrap the `params` Promise using `React.use()`
+  const { id } = React.use(params);
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
