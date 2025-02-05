@@ -31,7 +31,7 @@ function page() {
     <Button className='!bg-black/5 justify-self-start  text-[#2a254b] mt-16 rounded-none ml-0 laptop-max:w-[80%] laptop-max:mb-2'>Get in touch</Button>
     </Link>
     </div>
-    <Image className="laptop-max:w-[500px] laptop-max:h-[500px] laptop-max:mb-0" src="/image 9.jfif" width={700} height={740} alt="image" />
+    <Image className="laptop-max:w-[500px] laptop-max:h-[500px] laptop-max:mb-0" src="https://th.bing.com/th/id/R.166cdccc1659994decdc855e39047f9a?rik=ekk0brJuKql8fA&pid=ImgRaw&r=0&sres=1&sresct=1" width={700} height={740} alt="image" />
     </div>
 
 
